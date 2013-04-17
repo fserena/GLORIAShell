@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<import resource="classpath*:gsbeans.xml" />
+
+	<!-- Service beans -->
+
+	<bean id="interpreter" class="eu.gloria.presentation.shell.request.Interpreter"
+		scope="singleton" lazy-init="true"></bean>
+
+	<bean id="teleoperationService"
+		class="eu.gloria.presentation.shell.services.TeleoperationService"
+		scope="singleton" lazy-init="true">
+	</bean>
+
+	<bean id="userService"
+		class="eu.gloria.presentation.shell.services.UserRepositoryService"
+		scope="singleton" lazy-init="true">
+		<property name="systemPassword" value="password"></property>
+		<property name="systemUsername" value="user"></property>
+	</bean>
+
+	<bean id="rtService"
+		class="eu.gloria.presentation.shell.services.RTRepositoryService"
+		scope="singleton" lazy-init="true">
+	</bean>
+
+	<bean id="experimentService"
+		class="eu.gloria.presentation.shell.services.ExperimentsService"
+		scope="singleton" lazy-init="true">
+	</bean>
+
+	<bean id="imageService"
+		class="eu.gloria.presentation.shell.services.ImageRepositoryService"
+		scope="singleton" lazy-init="true">
+	</bean>
+
+	<bean id="shellService" class="eu.gloria.presentation.shell.services.ShellService"
+		scope="singleton" lazy-init="true">
+	</bean>
+
+	<!-- Generic command beans -->
+
+	<bean id="showCommand" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="show"></property>
+	</bean>
+
+	<bean id="removeCommand" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="remove"></property>
+	</bean>
+
+	<bean id="listCommand" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="list"></property>
+	</bean>
+
+	<bean id="setCommand" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="set"></property>
+	</bean>
+
+	<bean id="addCommand" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="add"></property>
+	</bean>
+
+	<bean id="registerCommand" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="register"></property>
+	</bean>
+
+	<bean id="makeCommand" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="make"></property>
+	</bean>
+
+	<bean id="enableCommand" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="enable"></property>
+	</bean>
+
+	<bean id="disableCommand" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="disable"></property>
+	</bean>
+
+	<bean id="isCommand" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="is"></property>
+	</bean>
+
+	<bean id="executeCommand" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="execute"></property>
+	</bean>
+
+	<bean id="startCommand" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="start"></property>
+	</bean>
+
+	<!-- Make beans -->
+
+	<bean id="make-reservation" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="make"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="makeReservation"></property>
+	</bean>
+
+	<!-- Start beans -->
+
+	<bean id="start-exposure" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="start"></property>
+		<property name="service" ref="teleoperationService"></property>
+		<property name="operation" value="startExposure"></property>
+	</bean>
+
+	<!-- Remove beans -->
+
+	<bean id="remove-reservation" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="remove"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="cancelReservation"></property>
+	</bean>
+
+	<bean id="remove-experiment" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="remove"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="removeExperiment"></property>
+	</bean>
+
+	<!-- Register beans -->
+
+	<bean id="register-user" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="register"></property>
+		<property name="service" ref="userService"></property>
+		<property name="operation" value="createUser"></property>
+	</bean>
+
+	<bean id="register-observatory" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="register"></property>
+		<property name="service" ref="rtService"></property>
+		<property name="operation" value="registerObservatory"></property>
+	</bean>
+
+	<bean id="register-experiment" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="register"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="createExperiment"></property>
+	</bean>
+
+	<bean id="register-rt" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="register"></property>
+		<property name="service" ref="rtService"></property>
+		<property name="operation" value="registerRT"></property>
+	</bean>
+
+	<bean id="register-image" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="register"></property>
+		<property name="service" ref="imageService"></property>
+		<property name="operation" value="saveImage"></property>
+	</bean>
+
+	<!-- Enable beans -->
+
+	<bean id="enable-user" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="enable"></property>
+		<property name="service" ref="userService"></property>
+		<property name="operation" value="activateUser"></property>
+	</bean>
+
+	<bean id="enable-mountTracking" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="enable"></property>
+		<property name="service" ref="teleoperationService"></property>
+		<property name="operation" value="enableMountTracking"></property>
+	</bean>
+
+	<!-- Disable beans -->
+
+	<bean id="disable-user" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="disable"></property>
+		<property name="service" ref="userService"></property>
+		<property name="operation" value="deactivateUser"></property>
+	</bean>
+
+	<bean id="disable-mountTracking" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="disable"></property>
+		<property name="service" ref="teleoperationService"></property>
+		<property name="operation" value="disableMountTracking"></property>
+	</bean>
+
+	<!-- Is beans -->
+
+	<bean id="is-userEnabled" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="is"></property>
+		<property name="service" ref="userService"></property>
+		<property name="operation" value="isUserActivated"></property>
+	</bean>
+
+	<bean id="is-userRegistered" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="is"></property>
+		<property name="service" ref="userService"></property>
+		<property name="operation" value="containsUser"></property>
+	</bean>
+
+	<bean id="is-featureCompliant" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="is"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="testExperimentFeature"></property>
+	</bean>
+
+	<!-- Set beans -->
+
+	<bean id="set-password" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="set"></property>
+		<property name="service" ref="userService"></property>
+		<property name="operation" value="setUserPassword"></property>
+	</bean>
+
+	<bean id="set-observatory" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="set"></property>
+		<property name="service" ref="rtService"></property>
+		<property name="operation" value="setObservatory"></property>
+	</bean>
+
+	<bean id="set-parameter" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="set"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="setExperimentParameterValue"></property>
+	</bean>
+
+	<bean id="set-trackingRate" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="set"></property>
+		<property name="service" ref="teleoperationService"></property>
+		<property name="operation" value="setTrackingRate"></property>
+	</bean>
+
+	<bean id="set-mountParkPosition" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="set"></property>
+		<property name="service" ref="teleoperationService"></property>
+		<property name="operation" value="parkMount"></property>
+	</bean>
+
+	<bean id="set-rtAvailability" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="set"></property>
+		<property name="service" ref="rtService"></property>
+		<property name="operation" value="setRTAvailability"></property>
+	</bean>
+
+	<!-- Show beans -->
+
+	<bean id="show-password" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="show"></property>
+		<property name="service" ref="userService"></property>
+		<property name="operation" value="getUserPassword"></property>
+	</bean>
+
+	<bean id="show-observatory" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="show"></property>
+		<property name="service" ref="rtService"></property>
+		<property name="operation" value="getObservatory"></property>
+	</bean>
+
+	<bean id="show-parameter" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="show"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getExperimentParameterValue"></property>
+	</bean>
+
+	<bean id="show-parameterSignature" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="show"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getParameterSignature"></property>
+	</bean>
+
+	<bean id="show-parameterProperties" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="show"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getParameterProperties"></property>
+	</bean>
+
+	<bean id="show-featureCompliantParameter" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="show"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getFeatureCompliantParameter"></property>
+	</bean>
+
+	<bean id="show-featureCompliantOperation" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="show"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getFeatureCompliantOperation"></property>
+	</bean>
+
+	<bean id="show-parameterBehaviour" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="show"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getParameterBehaviour"></property>
+	</bean>
+
+	<bean id="show-operationSignature" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="show"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getOperationSignature"></property>
+	</bean>
+
+	<bean id="show-operationBehaviour" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="show"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getOperationBehaviour"></property>
+	</bean>
+
+	<bean id="show-feature" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="show"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getFeatureSignature"></property>
+	</bean>
+
+	<!-- List beans -->
+
+	<bean id="list-observatories" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="list"></property>
+		<property name="service" ref="rtService"></property>
+		<property name="operation" value="getAllObservatories"></property>
+	</bean>
+
+	<bean id="list-telescopes" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="list"></property>
+		<property name="service" ref="rtService"></property>
+		<property name="operation" value="getAllRT"></property>
+	</bean>
+
+	<bean id="list-onlineExperiments" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="list"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getAllOnlineExperiments"></property>
+	</bean>
+
+	<bean id="list-rtDevices" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="list"></property>
+		<property name="service" ref="rtService"></property>
+		<property name="operation" value="getAllRTDeviceNames"></property>
+	</bean>
+
+	<bean id="list-activeReservations" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="list"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getMyActiveReservations"></property>
+		<property name="description"
+			value="Shows the list of active reservations that you have at this moment"></property>
+	</bean>
+
+	<bean id="list-availableReservations" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="list"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getAvailableReservations"></property>
+	</bean>
+
+	<bean id="list-operations" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="list"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getExperimentOperations"></property>
+	</bean>
+
+	<bean id="list-parameters" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="list"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getExperimentParameters"></property>
+	</bean>
+
+	<bean id="list-allParameters" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="list"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getAllParameterNames"></property>
+	</bean>
+
+	<bean id="list-allOperations" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="list"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getAllOperationNames"></property>
+	</bean>
+
+	<bean id="list-allFeatures" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="list"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getAllFeatureNames"></property>
+	</bean>
+
+	<bean id="list-commands" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="list"></property>
+		<property name="service" ref="shellService"></property>
+		<property name="operation" value="getCommandNames"></property>
+	</bean>
+
+	<bean id="list-options" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="list"></property>
+		<property name="service" ref="shellService"></property>
+		<property name="operation" value="getOptionNames"></property>
+	</bean>
+
+	<bean id="list-parametersByType" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="list"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getExperimentParametersByType"></property>
+	</bean>
+
+	<bean id="list-parametersByProperty" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="list"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="getExperimentParametersByProperty"></property>
+	</bean>
+
+	<!-- Add beans -->
+
+	<bean id="add-parameter" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="add"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="addExperimentParameter"></property>
+	</bean>
+
+	<bean id="add-operation" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="add"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="addExperimentOperation"></property>
+	</bean>
+
+	<bean id="add-feature" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="add"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="addExperimentFeature"></property>
+	</bean>
+
+	<!-- Execute beans -->
+
+	<bean id="execute-operation" class="eu.gloria.presentation.shell.request.ShellRequest">
+		<property name="command" value="execute"></property>
+		<property name="service" ref="experimentService"></property>
+		<property name="operation" value="executeExperimentOperation"></property>
+	</bean>
+
+
+</beans>
