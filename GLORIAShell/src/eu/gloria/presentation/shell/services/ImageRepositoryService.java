@@ -1,7 +1,5 @@
 package eu.gloria.presentation.shell.services;
 
-import java.util.Date;
-
 import javax.xml.ws.WebServiceException;
 
 import eu.gloria.gs.services.core.client.GSClientProvider;

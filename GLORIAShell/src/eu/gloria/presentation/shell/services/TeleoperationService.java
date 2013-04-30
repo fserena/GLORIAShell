@@ -3,12 +3,10 @@ package eu.gloria.presentation.shell.services;
 import javax.xml.ws.WebServiceException;
 
 import eu.gloria.gs.services.core.client.GSClientProvider;
-import eu.gloria.gs.services.teleoperation.ccd.CCDTeleoperationException;
+import eu.gloria.gs.services.teleoperation.base.TeleoperationException;
 import eu.gloria.gs.services.teleoperation.ccd.CCDTeleoperationInterface;
-import eu.gloria.gs.services.teleoperation.mount.MountTeleoperationException;
 import eu.gloria.gs.services.teleoperation.mount.MountTeleoperationInterface;
 import eu.gloria.gs.services.teleoperation.mount.TrackingRate;
-import eu.gloria.gs.services.teleoperation.scam.SCamTeleoperationException;
 import eu.gloria.gs.services.teleoperation.scam.SCamTeleoperationInterface;
 import eu.gloria.presentation.shell.request.ServiceException;
 
@@ -67,7 +65,7 @@ public class TeleoperationService extends Service {
 
 		try {
 			return scam.getImageURL(rt, scamName);
-		} catch (SCamTeleoperationException e) {
+		} catch (TeleoperationException e) {
 			throw new ServiceException(e.getMessage());
 		}
 	}
@@ -80,7 +78,7 @@ public class TeleoperationService extends Service {
 		try {
 			mount.setTrackingRate(rt, mountName,
 					TrackingRate.valueOf("DRIVE_" + tracking.toUpperCase()));
-		} catch (MountTeleoperationException e) {
+		} catch (TeleoperationException e) {
 			throw new ServiceException(e.getMessage());
 		}
 	}
@@ -92,7 +90,7 @@ public class TeleoperationService extends Service {
 
 		try {
 			mount.setTracking(rt, mountName, true);
-		} catch (MountTeleoperationException e) {
+		} catch (TeleoperationException e) {
 			throw new ServiceException(e.getMessage());
 		}
 	}
@@ -104,7 +102,7 @@ public class TeleoperationService extends Service {
 
 		try {
 			mount.setTracking(rt, mountName, false);
-		} catch (MountTeleoperationException e) {
+		} catch (TeleoperationException e) {
 			throw new ServiceException(e.getMessage());
 		}
 	}
@@ -115,7 +113,7 @@ public class TeleoperationService extends Service {
 
 		try {
 			mount.park(rt, mountName);
-		} catch (MountTeleoperationException e) {
+		} catch (TeleoperationException e) {
 			throw new ServiceException(e.getMessage());
 		}
 	}
@@ -127,7 +125,7 @@ public class TeleoperationService extends Service {
 
 		try {
 			ccd.startExposure(rt, ccdName);
-		} catch (CCDTeleoperationException e) {
+		} catch (TeleoperationException e) {
 			throw new ServiceException(e.getMessage());
 		}
 	}

@@ -30,7 +30,7 @@ public class GLORIAShell {
 
 		// System.err.close();
 
-		GSClientProvider.setHost("saturno.datsi.fi.upm.es");
+		GSClientProvider.setHost("localhost");
 		GSClientProvider.setPort("8443");
 
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
