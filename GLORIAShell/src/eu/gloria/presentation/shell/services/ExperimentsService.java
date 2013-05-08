@@ -41,7 +41,7 @@ public class ExperimentsService extends Service {
 
 	private OnlineExperimentInterface experiment = null;
 
-	public ExperimentsService() {		
+	public ExperimentsService() {
 	}
 
 	private synchronized OnlineExperimentInterface getService() {
@@ -122,6 +122,28 @@ public class ExperimentsService extends Service {
 		try {
 			List<ReservationInformation> reservations = experiment
 					.getMyCurrentReservations();
+
+			List<String> reservationsStr = new ArrayList<String>();
+
+			for (ReservationInformation reservation : reservations) {
+				reservationsStr.add(this.reservationToString(reservation));
+			}
+
+			return reservationsStr.toArray(new String[0]);
+
+		} catch (OnlineExperimentException e) {
+			throw new ServiceException(e.getMessage());
+		} catch (NoReservationsAvailableException e) {
+			return new String[0];
+		}
+	}
+
+	public String[] getMyPendingReservations() throws ServiceException {
+
+		this.getService();
+		try {
+			List<ReservationInformation> reservations = experiment
+					.getMyPendingReservations();
 
 			List<String> reservationsStr = new ArrayList<String>();
 
@@ -284,7 +306,7 @@ public class ExperimentsService extends Service {
 			throws ServiceException {
 
 		this.getService();
-		
+
 		ParameterInformation paramInfo = new ParameterInformation();
 		paramInfo.setModelName(parameterName);
 		paramInfo.setParameterName(type);
@@ -305,7 +327,7 @@ public class ExperimentsService extends Service {
 			throws ServiceException {
 
 		this.getService();
-		
+
 		OperationInformation operationInfo = new OperationInformation();
 		operationInfo.setModelName(operationName);
 		operationInfo.setOperationName(type);
@@ -325,7 +347,7 @@ public class ExperimentsService extends Service {
 			throws ServiceException {
 
 		this.getService();
-		
+
 		FeatureInformation featureInfo = new FeatureInformation();
 
 		featureInfo.setName(featureName);
@@ -345,7 +367,7 @@ public class ExperimentsService extends Service {
 			throws ServiceException {
 
 		this.getService();
-		
+
 		FeatureInformation featureInfo = new FeatureInformation();
 
 		featureInfo.setName(featureName);
@@ -367,7 +389,7 @@ public class ExperimentsService extends Service {
 			throws ServiceException {
 
 		this.getService();
-		
+
 		FeatureInformation featureInfo = new FeatureInformation();
 
 		featureInfo.setName(featureName);
@@ -395,7 +417,7 @@ public class ExperimentsService extends Service {
 			throws ServiceException {
 
 		this.getService();
-		
+
 		FeatureInformation featureInfo = new FeatureInformation();
 
 		featureInfo.setName(featureName);
@@ -418,7 +440,7 @@ public class ExperimentsService extends Service {
 			throws ServiceException {
 
 		this.getService();
-		
+
 		try {
 			experiment.executeExperimentOperation(reservationId, operationName);
 		} catch (OnlineExperimentException | NoSuchReservationException
@@ -436,7 +458,7 @@ public class ExperimentsService extends Service {
 			throws ServiceException {
 
 		this.getService();
-		
+
 		try {
 			return experiment.getExperimentParameterValue(reservationId,
 					parameterName);
@@ -452,7 +474,7 @@ public class ExperimentsService extends Service {
 			@Parameter(name = "value") Object value) throws ServiceException {
 
 		this.getService();
-		
+
 		try {
 
 			ReservationInformation resInfo = experiment
@@ -494,7 +516,7 @@ public class ExperimentsService extends Service {
 	public String[] getAllParameterNames() throws ServiceException {
 
 		this.getService();
-		
+
 		try {
 			Set<String> parameters = experiment.getAllExperimentParameters();
 
@@ -507,7 +529,7 @@ public class ExperimentsService extends Service {
 	public String[] getAllOperationNames() throws ServiceException {
 
 		this.getService();
-		
+
 		try {
 			Set<String> operations = experiment.getAllExperimentOperations();
 
@@ -520,7 +542,7 @@ public class ExperimentsService extends Service {
 	public String[] getAllFeatureNames() throws ServiceException {
 
 		this.getService();
-		
+
 		try {
 			Set<String> operations = experiment.getAllExperimentFeatures();
 
@@ -529,32 +551,34 @@ public class ExperimentsService extends Service {
 			throw new ServiceException(e.getMessage());
 		}
 	}
-	
-	public String getFeatureSignature(@Parameter(name = "feature") String featureName)
+
+	public String getFeatureSignature(
+			@Parameter(name = "feature") String featureName)
 			throws ServiceException {
 
 		this.getService();
-		
+
 		try {
 			ExperimentFeature requestedFeature = experiment
 					.getExperimentFeature(featureName);
 
-			String[] paramSignature = new String[requestedFeature.getOperations().size()];
+			String[] paramSignature = new String[requestedFeature
+					.getOperations().size()];
 
 			for (int i = 0; i < paramSignature.length; i++) {
 				paramSignature[i] = "(arg" + i + ") ";
 
-//				if (requestedParameter.argumentIsParameter(i)) {
-//					ExperimentParameter parameter = requestedParameter
-//							.getParameterDependencies().get(i);
-//
-//					paramSignature[i] += "Parameter: " + parameter.getName();
-//				} else {
-//					Class<?> valueType = requestedParameter
-//							.getValueArgumentType(i);
-//
-//					paramSignature[i] += "Value: " + valueType.getSimpleName();
-//				}
+				// if (requestedParameter.argumentIsParameter(i)) {
+				// ExperimentParameter parameter = requestedParameter
+				// .getParameterDependencies().get(i);
+				//
+				// paramSignature[i] += "Parameter: " + parameter.getName();
+				// } else {
+				// Class<?> valueType = requestedParameter
+				// .getValueArgumentType(i);
+				//
+				// paramSignature[i] += "Value: " + valueType.getSimpleName();
+				// }
 			}
 
 			return Arrays.toString(paramSignature);
@@ -563,11 +587,12 @@ public class ExperimentsService extends Service {
 		}
 	}
 
-	public String getParameterSignature(@Parameter(name = "parameter") String paramName)
+	public String getParameterSignature(
+			@Parameter(name = "parameter") String paramName)
 			throws ServiceException {
 
 		this.getService();
-		
+
 		try {
 			ExperimentParameter requestedParameter = experiment
 					.getExperimentParameter(paramName);
@@ -600,11 +625,12 @@ public class ExperimentsService extends Service {
 		}
 	}
 
-	public String[] getParameterBehaviour(@Parameter(name = "parameter") String paramName)
+	public String[] getParameterBehaviour(
+			@Parameter(name = "parameter") String paramName)
 			throws ServiceException {
 
 		this.getService();
-		
+
 		try {
 			ExperimentParameter requestedParameter = experiment
 					.getExperimentParameter(paramName);
@@ -647,11 +673,12 @@ public class ExperimentsService extends Service {
 		}
 	}
 
-	public String getOperationSignature(@Parameter(name = "operation") String operationName)
+	public String getOperationSignature(
+			@Parameter(name = "operation") String operationName)
 			throws ServiceException {
 
 		this.getService();
-		
+
 		try {
 			ExperimentOperation requestedOperation = experiment
 					.getExperimentOperation(operationName);
@@ -674,11 +701,12 @@ public class ExperimentsService extends Service {
 		}
 	}
 
-	public String[] getOperationBehaviour(@Parameter(name = "operation") String operationName)
+	public String[] getOperationBehaviour(
+			@Parameter(name = "operation") String operationName)
 			throws ServiceException {
 
 		this.getService();
-		
+
 		try {
 			ExperimentOperation requestedOperation = experiment
 					.getExperimentOperation(operationName);
@@ -721,11 +749,12 @@ public class ExperimentsService extends Service {
 		}
 	}
 
-	public String[] getParameterProperties(@Parameter(name = "parameter") String paramName)
+	public String[] getParameterProperties(
+			@Parameter(name = "parameter") String paramName)
 			throws ServiceException {
 
 		this.getService();
-		
+
 		try {
 			ExperimentParameter requestedParameter = experiment
 					.getExperimentParameter(paramName);
@@ -753,11 +782,12 @@ public class ExperimentsService extends Service {
 		}
 	}
 
-	public String[] getExperimentOperationsByType(@Parameter(name = "experiment") String experimentName,
+	public String[] getExperimentOperationsByType(
+			@Parameter(name = "experiment") String experimentName,
 			@Parameter(name = "type") String type) throws ServiceException {
-		
+
 		this.getService();
-		
+
 		try {
 
 			ExperimentInformation expInfo = experiment
@@ -777,11 +807,12 @@ public class ExperimentsService extends Service {
 		}
 	}
 
-	public String[] getExperimentParametersByType(@Parameter(name = "experiment") String experimentName,
+	public String[] getExperimentParametersByType(
+			@Parameter(name = "experiment") String experimentName,
 			@Parameter(name = "type") String type) throws ServiceException {
-		
+
 		this.getService();
-		
+
 		try {
 
 			ExperimentInformation expInfo = experiment
@@ -801,11 +832,13 @@ public class ExperimentsService extends Service {
 		}
 	}
 
-	public String[] getExperimentParametersByProperty(@Parameter(name = "experiment") String experimentName,
-			@Parameter(name = "property") String property) throws ServiceException {
-		
+	public String[] getExperimentParametersByProperty(
+			@Parameter(name = "experiment") String experimentName,
+			@Parameter(name = "property") String property)
+			throws ServiceException {
+
 		this.getService();
-		
+
 		try {
 
 			ExperimentInformation expInfo = experiment
