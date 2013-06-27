@@ -60,7 +60,6 @@ public class GLORIAShell {
 
 		String input = "";
 
-		// open up standard input
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		Interpreter interpreter = (Interpreter) context.getBean("interpreter");
