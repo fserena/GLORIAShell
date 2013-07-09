@@ -131,12 +131,15 @@ public class RTRepositoryService extends Service {
 
 	public void registerRT(@Parameter(name = "rt") String rtName,
 			@Parameter(name = "owner") String owner,
-			@Parameter(name = "url") String url) throws ServiceException {
+			@Parameter(name = "url") String url,
+			@Parameter(name = "user") String user,
+			@Parameter(name = "password") String password)
+			throws ServiceException {
 
 		this.getService();
 
 		try {
-			rt.registerRT(rtName, owner, url);
+			rt.registerRT(rtName, owner, url, user, password);
 		} catch (RTRepositoryException e) {
 			throw new ServiceException(e.getMessage());
 		}
