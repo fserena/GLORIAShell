@@ -19,7 +19,7 @@
 		class="eu.gloria.presentation.shell.services.UserRepositoryService"
 		scope="singleton" lazy-init="true">
 		<property name="systemPassword" value="password"></property>
-		<property name="systemUsername" value="user"></property>
+		<property name="systemUsername" value="username"></property>
 	</bean>
 
 	<bean id="rtService"

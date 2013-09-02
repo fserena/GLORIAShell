@@ -12,30 +12,28 @@ import java.util.Set;
 import javax.xml.ws.WebServiceException;
 
 import eu.gloria.gs.services.core.client.GSClientProvider;
-import eu.gloria.gs.services.experiment.online.OnlineExperimentException;
 import eu.gloria.gs.services.experiment.online.OnlineExperimentInterface;
-import eu.gloria.gs.services.experiment.online.data.ExperimentInformation;
-import eu.gloria.gs.services.experiment.online.data.FeatureCompliantInformation;
-import eu.gloria.gs.services.experiment.online.data.NoSuchExperimentException;
-import eu.gloria.gs.services.experiment.online.data.OperationInformation;
-import eu.gloria.gs.services.experiment.online.data.ParameterInformation;
-import eu.gloria.gs.services.experiment.online.data.ReservationInformation;
-import eu.gloria.gs.services.experiment.online.data.FeatureInformation;
-import eu.gloria.gs.services.experiment.online.data.TimeSlot;
-import eu.gloria.gs.services.experiment.online.models.DuplicateExperimentException;
-import eu.gloria.gs.services.experiment.online.models.ExperimentFeature;
-import eu.gloria.gs.services.experiment.online.operations.ExperimentOperation;
-import eu.gloria.gs.services.experiment.online.operations.ExperimentOperationException;
-import eu.gloria.gs.services.experiment.online.operations.NoSuchOperationException;
-import eu.gloria.gs.services.experiment.online.parameters.ExperimentParameter;
-import eu.gloria.gs.services.experiment.online.parameters.ExperimentParameterException;
-import eu.gloria.gs.services.experiment.online.parameters.ParameterType;
-import eu.gloria.gs.services.experiment.online.reservation.ExperimentNotInstantiatedException;
-import eu.gloria.gs.services.experiment.online.reservation.ExperimentReservationArgumentException;
-import eu.gloria.gs.services.experiment.online.reservation.NoSuchReservationException;
-import eu.gloria.gs.services.experiment.online.reservation.MaxReservationTimeException;
-import eu.gloria.gs.services.experiment.online.reservation.NoReservationsAvailableException;
 import eu.gloria.presentation.shell.request.ServiceException;
+
+import eu.gloria.gs.services.experiment.online.OnlineExperimentException;
+import eu.gloria.gs.services.experiment.base.models.DuplicateExperimentException;
+import eu.gloria.gs.services.experiment.base.models.ExperimentFeature;
+import eu.gloria.gs.services.experiment.base.operations.ExperimentOperation;
+import eu.gloria.gs.services.experiment.base.operations.ExperimentOperationException;
+import eu.gloria.gs.services.experiment.base.operations.NoSuchOperationException;
+import eu.gloria.gs.services.experiment.base.parameters.ExperimentParameter;
+import eu.gloria.gs.services.experiment.base.parameters.ExperimentParameterException;
+import eu.gloria.gs.services.experiment.base.parameters.ParameterType;
+import eu.gloria.gs.services.experiment.base.reservation.NoReservationsAvailableException;
+import eu.gloria.gs.services.experiment.base.data.ExperimentInformation;
+import eu.gloria.gs.services.experiment.base.data.FeatureCompliantInformation;
+import eu.gloria.gs.services.experiment.base.data.FeatureInformation;
+import eu.gloria.gs.services.experiment.base.data.NoSuchExperimentException;
+import eu.gloria.gs.services.experiment.base.data.OperationInformation;
+import eu.gloria.gs.services.experiment.base.data.ParameterInformation;
+import eu.gloria.gs.services.experiment.base.data.ReservationInformation;
+import eu.gloria.gs.services.experiment.base.data.TimeSlot;
+import eu.gloria.gs.services.experiment.base.reservation.*;
 
 public class ExperimentsService extends Service {
 

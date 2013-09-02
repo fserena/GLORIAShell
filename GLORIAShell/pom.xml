@@ -110,13 +110,13 @@
 	<dependencies>
 		<dependency>
 			<groupId>eu.gloria.gs.services</groupId>
-			<artifactId>GLORIAInterfaces</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
+			<artifactId>SClientTools</artifactId>
+			<version>0.0.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>eu.gloria.gs.services</groupId>
-			<artifactId>SClientTools</artifactId>
-			<version>0.0.3-SNAPSHOT</version>
+			<artifactId>GLORIAInterfaces</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	<parent>
